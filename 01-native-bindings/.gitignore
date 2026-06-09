@@ -1,0 +1,30 @@
+# Build artifacts (regenerados por scripts/compile-*.sh)
+build/
+
+# SwiftPM build cache (swift-implementation/)
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Gradle / Android (jni-implementation/, react-native-implementation/android)
+.gradle/
+.cxx/
+local.properties
+
+# CocoaPods
+Pods/
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+
+# Ruby bundler local config (ruta a vendor/bundle, regenerable)
+**/.bundle/

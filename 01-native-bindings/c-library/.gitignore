@@ -1,0 +1,11 @@
+# Build artefacts
+build/
+headers/
+
+# Local Makefile output
+caesar.o
+libcaesar.a
+main
+
+# macOS
+.DS_Store
