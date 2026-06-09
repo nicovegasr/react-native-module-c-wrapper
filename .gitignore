@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Build artifacts
+build/
+DerivedData/
+*.xcuserstate
+
+# Dependencies
+node_modules/
+Pods/
+.gradle/
+.cxx/
+
+# Local config
+local.properties
