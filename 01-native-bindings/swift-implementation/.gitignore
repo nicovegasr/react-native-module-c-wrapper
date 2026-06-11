@@ -1,0 +1,3 @@
+build/
+# Vendored xcframework — regenerado por setup.sh desde build/ios/. No versionar.
+vendor/
