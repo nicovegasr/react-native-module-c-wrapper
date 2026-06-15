@@ -1,0 +1,81 @@
+buildscript {
+  ext.CaesarRn = [
+    kotlinVersion: "2.0.21",
+    minSdkVersion: 24,
+    compileSdkVersion: 36,
+    targetSdkVersion: 36
+  ]
+
+  ext.getExtOrDefault = { prop ->
+    if (rootProject.ext.has(prop)) {
+      return rootProject.ext.get(prop)
+    }
+
+    return CaesarRn[prop]
+  }
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+  }
+}
+
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
+
+// El AAR del wrapper Kotlin (jni-implementation/) se copia a libs/ por
+// setup.sh. flatDir lo expone como repo local; la dependencia se declara
+// abajo en `dependencies`.
+repositories {
+  flatDir {
+    dirs "libs"
+  }
+}
+
+android {
+  namespace "com.nicovegasr.caesarrn"
+
+  compileSdkVersion getExtOrDefault("compileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion getExtOrDefault("minSdkVersion")
+    targetSdkVersion getExtOrDefault("targetSdkVersion")
+  }
+
+  buildFeatures {
+    buildConfig true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+    }
+  }
+
+  lint {
+    disable "GradleCompatible"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  implementation "com.facebook.react:react-android"
+
+  // Wrapper Kotlin sobre libcaesar (jni-implementation/). Trae sus propias
+  // jniLibs (libcaesar.so + libcaesar-jni.so) por ABI. El RN module NO
+  // contiene código C ni JNI propio.
+  implementation(name: "caesar", ext: "aar")
+}
