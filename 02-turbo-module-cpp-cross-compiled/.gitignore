@@ -1,0 +1,47 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+*.log
+
+# Yarn (Berry)
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# Ruby / CocoaPods caches in the example app
+**/.bundle/
+**/vendor/bundle/
+
+# Editor
+.vscode/
+
+# Codegen output (regenerated each build)
+**/build/generated/source/codegen/
+
+# Build outputs (JS)
+lib/
+coverage/
+
+# Build outputs (C++): cualquier build/ anidado bajo caesar-cipher/
+caesar-cipher/**/build/
+
+# Android
+**/android/build/
+**/android/.cxx/
+.gradle/
+local.properties
+
+# iOS
+**/ios/build/
+example/ios/Pods/
+DerivedData/
+*.xcuserstate
+
+# Verdaccio (si se monta storage local)
+verdaccio/storage/
