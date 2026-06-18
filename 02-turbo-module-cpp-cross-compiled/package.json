@@ -1,0 +1,127 @@
+{
+  "name": "@nicovegasr/caesar-rn",
+  "version": "0.1.4",
+  "description": "React Native TurboModule (C++ compartido iOS/Android) para la librería de cifrado César",
+  "main": "./lib/module/index.js",
+  "types": "./lib/typescript/caesar-cipher/infrastructure/turbo-module/js/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./caesar-cipher/infrastructure/turbo-module/js/index.tsx",
+      "types": "./lib/typescript/caesar-cipher/infrastructure/turbo-module/js/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "caesar-cipher",
+    "lib",
+    "*.podspec",
+    "react-native.config.js",
+    "!caesar-cipher/infrastructure/cpp-adapter/tests",
+    "!caesar-cipher/infrastructure/cpp-adapter/build",
+    "!**/__tests__",
+    "!**/.*"
+  ],
+  "scripts": {
+    "typecheck": "tsc",
+    "test": "jest",
+    "test:cpp": "cmake -S caesar-cipher/infrastructure/cpp-adapter -B caesar-cipher/infrastructure/cpp-adapter/build -DCAESAR_BUILD_TESTS=ON && cmake --build caesar-cipher/infrastructure/cpp-adapter/build && ctest --test-dir caesar-cipher/infrastructure/cpp-adapter/build --output-on-failure",
+    "clean": "del-cli lib caesar-cipher/infrastructure/cpp-adapter/build",
+    "prepare": "bob build",
+    "registry:start": "docker compose up -d",
+    "registry:stop": "docker compose down",
+    "release": "release-it"
+  },
+  "keywords": [
+    "react-native",
+    "turbomodule",
+    "cpp",
+    "android",
+    "ios"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicovegasr/react-native-module-c-wrapper.git"
+  },
+  "author": "Nicolas Daniel Vegas Rodriguez <nicovegasr@gmail.com>",
+  "license": "MIT",
+  "packageManager": "yarn@4.1.1+sha512.ec40d0639bb307441b945d9467139cbb88d14394baac760b52eca038b330d16542d66fef61574271534ace5a200518dabf3b53a85f1f9e4bfa37141b538a9590",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@react-native/babel-preset": "0.85.0",
+    "@react-native/jest-preset": "0.85.0",
+    "@release-it/conventional-changelog": "^10.0.0",
+    "@types/jest": "^29.5.5",
+    "@types/react": "^19.1.0",
+    "del-cli": "^6.0.0",
+    "jest": "^29.7.0",
+    "react": "19.1.0",
+    "react-native": "0.85.0",
+    "react-native-builder-bob": "^0.40.0",
+    "release-it": "^19.0.0",
+    "typescript": "^5.8.0"
+  },
+  "jest": {
+    "preset": "@react-native/jest-preset",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "codegenConfig": {
+    "name": "CaesarSpec",
+    "type": "modules",
+    "jsSrcsDir": "caesar-cipher/infrastructure/turbo-module/js",
+    "android": {
+      "javaPackageName": "com.nicovegasr.caesar"
+    },
+    "ios": {
+      "modulesProvider": {
+        "NativeCaesar": "CaesarModuleProvider"
+      }
+    }
+  },
+  "react-native-builder-bob": {
+    "source": "caesar-cipher/infrastructure/turbo-module/js",
+    "output": "lib",
+    "targets": [
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "angular"
+        }
+      }
+    }
+  }
+}
