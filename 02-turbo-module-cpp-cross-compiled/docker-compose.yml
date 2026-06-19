@@ -1,0 +1,25 @@
+# Registry NPM local para probar la publicación/instalación del paquete
+# sin tocar el registry real.
+#
+# Uso:
+#   docker compose up -d          # levanta Verdaccio en http://localhost:4873
+#   npm adduser --registry http://localhost:4873   (cualquier user/pass la primera vez)
+#   npm publish --registry http://localhost:4873
+#
+# Para consumir desde una app de prueba, en su .yarnrc.yml:
+#   npmScopes:
+#     nicovegasr:
+#       npmRegistryServer: "http://localhost:4873"
+#   unsafeHttpWhitelist: ["localhost"]
+services:
+  verdaccio:
+    image: verdaccio/verdaccio:6
+    container_name: caesar-verdaccio
+    ports:
+      - "4873:4873"
+    volumes:
+      - verdaccio-storage:/verdaccio/storage
+    restart: unless-stopped
+
+volumes:
+  verdaccio-storage:

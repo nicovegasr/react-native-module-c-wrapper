@@ -1,0 +1,7 @@
+appId: com.caesarexample
+---
+- launchApp
+- assertVisible:
+    id: "encrypted"
+- assertVisible: "Mtqf, rzsit!"
+- assertVisible: "Hola, mundo!"
